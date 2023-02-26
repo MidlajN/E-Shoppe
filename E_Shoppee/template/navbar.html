@@ -10,7 +10,7 @@
           <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
     
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="">Products</a>
+              <a class="nav-link" aria-current="page" href="{% url 'E_App:AllProdCat' %}">Products</a>
             </li>
     
             <li class="nav-item dropdown">
@@ -18,7 +18,9 @@
                  role="button" data-bs-toggle="dropdown" aria-expanded="false">Category
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                  <li><a class="dropdown-item" href="">Electrical</a></li>
+                {% for cat in links %}
+                  <li><a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}</a></li>
+                {% endfor %}
               </ul>
             </li>
   

@@ -1,0 +1,30 @@
+
+/* google fonts  */
+@import url('https://fonts.googleapis.com/css2?family=Dosis&family=Nunito+Sans&family=Pacifico&display=swap');
+body {
+    font-family: 'Dosis', sans-serif;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+.header{
+    background-color: rgb(42, 116, 206);
+    font-family: 'Pacifico', cursive;
+}
+
+/* navbar */
+.nav-item {
+
+    letter-spacing: .2em;
+    font-size:14px;
+    text-transform:uppercase;
+}
+
+.dropdown-item{
+
+    letter-spacing: .2em;
+    font-size:14px;
+    text-transform:uppercase;
+}
+
+

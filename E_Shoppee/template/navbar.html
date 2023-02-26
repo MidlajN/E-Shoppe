@@ -1,0 +1,68 @@
+<div class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow py-1">
+      <div class="container-fluid ">
+        <a></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+    
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="">Products</a>
+            </li>
+    
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarScrollingDropdown"
+                 role="button" data-bs-toggle="dropdown" aria-expanded="false">Category
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                  <li><a class="dropdown-item" href="">Electrical</a></li>
+              </ul>
+            </li>
+  
+          </ul>
+    
+          <div class="d-flex ">
+    
+            <form class=" d-flex" style="padding-right:8px;" action=""  method="get">
+              {% csrf_token %}
+              <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search">
+              <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+    
+            <div class="dropdown" style="margin:auto;">
+              <a
+                class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                href=""
+                id="navbarDropdownMenuAvatar"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+
+                <img
+                        src="https://i.stack.imgur.com/dr5qp.jpg"
+                        class="rounded-circle"
+                        height="25"
+                        alt="D user"
+                        loading="lazy" />
+              </a>
+    
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                <li>
+                  <a class="dropdown-item disabled" style="color:blue;">User</a></li>
+                <li>
+                  <a class="dropdown-item" href="">Logout</a></li>
+                <li>
+                  <a class="dropdown-item" href="">Sign In</a></li>
+                <li>
+                  <a class="dropdown-item" href="">Sign Up</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    </div>
+    

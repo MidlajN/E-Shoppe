@@ -1,4 +1,84 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if category %}
+        {{category.name}} - E Shoppee
+    {% else %}
+        See Cur Cew Collection - E Shoppee
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 
+{% if category %}
+<div class="mx-auto">
+    <img width="100%" src="{{category.cat_img.url}}" alt="{{category.name}}">
+    <div class="container text-center p-3">
+        <h2><b>{{category.name}}</b></h2>
+        <p>{{category.description}}</p>
+    </div>
+</div>
+{% else %}
+<div class="mx-auto">
+    <img class="h-75" width="100%" src="{% static 'images/banner.jpeg' %}" alt="E_SHOPPEE">
+    <div class="container text-center p-3">
+        <h2><b>Our Products</b></h2>
+        <p>Enterprise ecommerce is the buying and selling of products to large
+            companies or organizations. If a large business sells many different types
+            of products or has multiple brand lines and transitions into selling online,
+            then it is participating in enterprise ecommerce.</p>
+    </div>
+</div>
+{% endif %}
+
+<div class="section-products">
+    <div class="container">
+        <div class="row mx-auto">
+    
+            {% for product in products %}
+    
+            <div class="col-md-6 col-lg-4 col-xl-4 py-2">
+                <div class="card text-center">
+   
+                        <div id="product-1" class="single-product">
+                            <div class="part-1">
+                                <img class="card-img part-1" src="{{product.product_image.url}}" alt="{{product.name}}">
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-plus"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+    
+                        <div class="card-body part-2">
+                            <a href="{{product.get_url}}">
+                                <div class="card-title py-2" >
+                                    <h3 class="prodname">{{ product.name }}</h3>
+                                    <h4 class="prodprice">$ : {{ product.price }}</h4>
+                                </div>
+                            </a>
+                        </div>
+    
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mx-auto">
+            {% if products.paginator.num_pages > 1 %}
+            <hr>
+            <div class="text-center">
+                {% for pg in products.paginator.page_range %}
+                <a href="?page={{ pg }}" class="btn btn-light btn-sm
+                {% if products.number == pg %} btn-outline-primary {%endif%}">{{ pg }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    
+</div>
 {% endblock %}

@@ -28,9 +28,9 @@
     
           <div class="d-flex ">
     
-            <form class=" d-flex" style="padding-right:8px;" action=""  method="get">
-              {% csrf_token %}
-              <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search">
+            <form class=" d-flex" style="padding-right:8px;" action="{% url 'E_App:Search' %}"  method="get">
+              
+              <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search" required>
               <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
             </form>
     

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Here are the search results
+{% endblock %}
+
+{% block content%}
+<div class="section-products">
+    <div class="container">
+
+        <div class="text-center">
+            <p>You Have Searched For : <b style="color:blue">"{{query}}"</b></p>
+            <p class="text-muted">Product Found : <b style="color:blue">{{number}}</b></p>
+        </div>
+
+        <div class="row mx-auto">
+
+            {% for product in products %}
+                <div class="col-md-6 col-lg-4 col-xl-4 py-2">
+                    <div class="card text-center">
+    
+                        <div id="product-1" class="single-product">
+                            <div class="part-1">
+                                <img class="card-img part-1" src="{{product.product_image.url}}" alt="{{product.name}}">
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="{{product.get_url}}"><i class="fas fa-expand"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+    
+                        <div class="card-body part-2">
+                            <a href="{{product.get_url}}">
+                                <div class="card-title py-2" >
+                                    <h3 class="prodname">{{ product.name }}</h3>
+                                    <h4 class="prodprice">$ : {{ product.price }}</h4>
+                                </div>
+                            </a>
+                        </div>
+        
+                    </div>
+                </div>
+            {% empty %}
+                <div class="row mx-auto text-center">
+                    <p>Zero Result Found<br>
+                    <a href="{% url 'E_App:AllProdCat' %}" style="color:blue;">Return Home</a></p>
+                </div>
+            {% endfor %}
+
+         </div>
+    </div>
+</div>
+{% endblock %}

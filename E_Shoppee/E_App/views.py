@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from .models import Category, Product
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.db.models import Q
 
 # Create your views here.
 def AllProdCat(request, cat_slug = None):
@@ -26,3 +27,25 @@ def AllProdCat(request, cat_slug = None):
         products = paginator.page(paginator.num_pages)
 
     return render(request, 'category.html', {'category': cat_page, 'products': products})
+
+
+def ProductDetail(request, cat_slug, product_slug):
+    try:
+        product = Product.objects.get(category__slug=cat_slug, slug=product_slug)
+
+    except Exception as e:
+        raise e
+    
+    return render(request, 'product.html', {'product': product})
+
+
+def SearchResult(request):
+    if 'q' in request.GET:
+        query = request.GET.get('q')
+        product = Product.objects.all().filter(
+            Q(name__contains=query) | Q(category__name__contains=query) | Q(description__contains=query)
+            )
+        number = len(product)
+
+        return render(request, 'search.html', {'query': query, 'products': product, 'number': number})
+    

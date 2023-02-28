@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if category %}
+        {{product.name}} - EcomZone
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <div class="row">
+        <div class="mx-auto text-muted">
+            <p style="font-size: 12px;"><a style="color: blue;" href="{% url 'E_App:AllProdCat' %}">Home</a>
+                | <a style="color:blue" href="{{product.category.get_url}}">{{ product.category }}</a>
+                | {{product.name}}
+            </p>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                <div class="py-5 px-5">
+                    <img src="{{product.product_image.url}}" width="70%" alt="{{product.name}}">
+                </div>
+            </div>
+
+            <div class="col-sm-12  col-lg-6">
+                <div class="mt-5">
+                    <h1>{{product.name}}</h1>
+                    <p class="text-muted">$ {{product.price}}</p>
+                    <p><b>Product description</b></p>
+                    <p style="font-size:14px">{{product.description}}</p>
+
+                    {% if product.stock <= 2 and product.stock > 0 %}
+                        <div style="padding-bottom: 15px;font-size: 13px;">
+                            <h>Only Few Stocks Available <h style="color:red"> Hurry</h></h>
+                        </div>
+                    {% endif %}
+
+                    {% if product.stock <= 0 %}
+                        <p style="color:red">Out of Stock</p>
+                    {% else %}
+                        <a href="">
+                            <button class="btn btn-primary py-1 px-5">Add To Cart</button>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

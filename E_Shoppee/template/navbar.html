@@ -52,14 +52,17 @@
               </a>
     
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                {% if user.is_authenticated %}
                 <li>
-                  <a class="dropdown-item disabled" style="color:blue;">User</a></li>
+                  <a class="dropdown-item disabled" style="color:blue;">{{user.username}}</a></li>
                 <li>
-                  <a class="dropdown-item" href="">Logout</a></li>
+                  <a class="dropdown-item" href="{% url 'E_User:Logout' %}">Logout</a></li>
+                {% else %}
                 <li>
-                  <a class="dropdown-item" href="">Sign In</a></li>
+                  <a class="dropdown-item" href="{% url 'E_User:Login' %}">Sign In</a></li>
                 <li>
-                  <a class="dropdown-item" href="">Sign Up</a></li>
+                  <a class="dropdown-item" href="{% url 'E_User:Register' %}">Register</a></li>
+                {% endif %}
               </ul>
             </div>
           </div>

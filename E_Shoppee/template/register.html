@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="container py-5 d-flex justify-content-center">
+	<div class="col-md-6 shadow" align="center">
+
+        <div class="row">
+            <div class="col-sm-5">
+                <a href="#" class="text-muted" id="buyer-form-link">
+                    <div class="py-2 mt-2 nav-item usertype">
+                        <b style="text-shadow:0px 1px 2px;">BUYER</b> 
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-2 mt-2 py-2">
+                <i class="fa-solid fa-user" style="color:blue;"></i>
+            </div>
+            <div class="col-sm-5">
+                <a href="#" id="seller-form-link">
+                    <div class="py-2 mt-2 nav-item">
+                        <b style="text-shadow:0px 1px 2px;">SELLER</b> 
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="row">
+                <div class="px-5" >
+
+                    <form id="buyer-form" method="post" role="form" action="{% url 'E_User:Buyer_Reg' %}" style="display: none;">
+                        {% csrf_token %}
+                        <div class="form-outline mb-4 pb-2 mt-4">
+                            <h2>BUYER</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div class="col-sm-11 form-outline mb-4">
+                                {{form_buyer.username|attr:'class:form-control form-control-sm'|attr:'placeholder:Username'}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">
+                                
+                            </div>
+                            <div class="col-sm-11">
+                                <div class="row">
+                                    <div class="col-sm-6 form-outline mb-4">
+                                        {{form_buyer.first_name|attr:'class:form-control form-control-sm'|attr:'placeholder:First Name'}}
+                                    </div>
+                                    <div class="col-sm-6 form-outline mb-4">
+                                        {{form_buyer.last_name|attr:'class:form-control form-control-sm'|attr:'placeholder:Last Name'}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+
+                            <div class="col-sm-11 form-outline mb-4">
+                                {{form_buyer.email|attr:'class:form-control form-control-sm'|attr:'placeholder:Email'}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+                            <div class="col-sm-11 form-outline mb-4">
+                                {{form_buyer.password1|attr:'class:form-control form-control-sm'|attr:'placeholder:Password'}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">
+                                
+                            </div>
+                            <div class="col-sm-11 form-outline mb-4">
+                                {{form_buyer.password2|attr:'class:form-control form-control-sm'|attr:'placeholder:Confirm Password'}}
+                            </div>
+                        </div>
+
+                        <div class="form-outline pb-5 pt-3">
+                            <div class="row">
+                                <div class="col-sm-6 text-muted d-flex justify-content-start">
+                                    <h style="font-size: 13px;"> Already Have Account? <a href="" style="color:blue">Sign In Here</a> </h>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="submit" name="register-submit" class="btn btn-outline-primary btn-sm btn-block" style="width: 100%;">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+                    <form id="seller-form" method="post" role="form" style="display: none;" action="{% url 'E_User:Seller_Reg' %}">
+                        {% csrf_token %}
+                        <div class="form-outline mb-4 pb-2 mt-4">
+                            <h2>SELLER</h2>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div class="col-sm-11 form-outline mb-4">
+                                {{form_seller.username|attr:'class:form-control form-control-sm'|attr:'placeholder:Username'}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1 mt-1"></div>
+                            <div class="col-sm-11">
+                                <div class="row">
+                                    <div class="col-sm-6 form-outline mb-4">
+                                        {{form_seller.first_name|attr:'class:form-control form-control-sm'|attr:'placeholder:First Name'}}
+                                    </div>
+                                    <div class="col-sm-6 form-outline mb-4">
+                                        {{form_seller.last_name|attr:'class:form-control form-control-sm'|attr:'placeholder:Last Name'}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+
+                            <div class="col-sm-11 form-outline mb-4">
+                                {{form_seller.email|attr:'class:form-control form-control-sm'|attr:'placeholder:Email'}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+                            <div class="col-sm-11 form-outline mb-4">
+                                {{form_seller.password1|attr:'class:form-control form-control-sm'|attr:'placeholder:Password'}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">  
+                            </div>
+                            <div class="col-sm-11 form-outline mb-4">
+                                {{form_seller.password2|attr:'class:form-control form-control-sm'|attr:'placeholder:Confirm Password'}}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 d-flex justify-content-center">
+                            {% for msg in messages %}
+                            <h style="font-size: 14px;color: red;">{{msg}}</h>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-outline pb-5 pt-3">
+                            <div class="row">
+                                <div class="col-sm-6 text-muted d-flex justify-content-start">
+                                    <h style="font-size: 13px;"> Already Have Account? <a href="" style="color:blue">Sign In Here</a> </h>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="submit" name="register-submit" class="btn btn-outline-primary btn-sm btn-block" style="width: 100%;">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+$(function() {
+
+    $('#buyer-form-link').click(function(e) {
+		$("#buyer-form").delay(100).fadeIn(100);
+ 		$("#seller-form").fadeOut(100);
+		$('#seller-form-link').removeClass('text-muted');
+		$(this).addClass('text-muted');
+		e.preventDefault();
+	});
+	$('#seller-form-link').click(function(e) {
+		$("#seller-form").delay(100).fadeIn(100);
+ 		$("#buyer-form").fadeOut(100);
+		$('#buyer-form-link').removeClass('text-muted');
+		$(this).addClass('text-muted');
+		e.preventDefault();
+	});
+
+});
+
+</script>
+{% endblock %}

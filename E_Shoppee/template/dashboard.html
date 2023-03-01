@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if request.user.is_seller == True %}
+<div class="container">
+    <div class="row py-4">
+        <div class="col-sm-6">
+            <div class="card">
+                <a href="#" class="btn btn-outline-secondary shadow">
+                    <div class="card-body py-4 text-center">
+                        <h5 style="text-transform: uppercase;letter-spacing: 0.2em;font-size: 15px;"><b>Edit Existing Products</b></h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <a href="{% url 'E_App:AddProduct' %}" class="btn btn-primary shadow-sm">
+                    <div class="card-body py-4 text-center">
+                        <h5 style="text-transform: uppercase;letter-spacing: 0.2em;font-size: 15px;"><b>Add a New Product</b></h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endif %}
+{% endblock %}

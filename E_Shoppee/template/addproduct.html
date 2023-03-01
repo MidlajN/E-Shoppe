@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div>
+    {% for msg in messages %}
+    <h1>{{msg}}</h1>
+    {% endfor %}
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>submit</button>
+</form>
+{% endblock %}

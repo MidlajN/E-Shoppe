@@ -64,3 +64,15 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('E_App:AllProdCat')
+
+
+def dashboard(request):
+    
+    if request.user.is_seller == True:
+        messages.info(request, 'User is Seller')
+        
+    else:
+        messages.info(request, 'User is Buyer')
+        
+    
+    return render(request, 'dashboard.html')

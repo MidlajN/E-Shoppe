@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from E_User.models import User
+from django.utils.text import slugify
 
 # Create your models here.
 class Category(models.Model):
@@ -27,6 +29,7 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     product_image = models.ImageField(upload_to='product')
     stock = models.IntegerField()
     available = models.BooleanField(default=True)
@@ -37,6 +40,11 @@ class Product(models.Model):
         ordering = ('name',)
         verbose_name = 'product'
         verbose_name_plural = 'products'
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+    
 
     def get_url(self):
         return reverse('E_App:ProductDetail', args=[self.category.slug, self.slug])

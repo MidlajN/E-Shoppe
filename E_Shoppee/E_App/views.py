@@ -1,7 +1,9 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import Category, Product
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.db.models import Q
+from E_App.forms import ProductAddForm
+from django.contrib import messages
 
 # Create your views here.
 def AllProdCat(request, cat_slug = None):
@@ -49,3 +51,24 @@ def SearchResult(request):
 
         return render(request, 'search.html', {'query': query, 'products': product, 'number': number})
     
+
+def AddProduct(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            form = ProductAddForm(request.POST, request.FILES)
+            
+            for field in form:
+                print(field.value())
+
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.seller = request.user
+                obj.save()
+                return redirect('E_User:Dashboard')
+            else:
+                messages.info(request, 'Invalid')
+                print(form.errors)
+                print(form.non_field_errors)
+
+    form = ProductAddForm()
+    return render(request, 'addproduct.html', {'form': form})

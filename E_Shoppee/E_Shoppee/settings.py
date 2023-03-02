@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'E_App',
     'E_User',
+    'E_Cart',
 
 ]
 
@@ -69,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'E_App.context_processors.menu_links',
+                'E_Cart.context_processors.counter',
             ],
         },
     },

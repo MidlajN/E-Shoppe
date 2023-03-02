@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+   Cart - E Shoppee
+{% endblock %}
+
+{% block content %}
+
+{% if not cart_items %}
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center">Your Cart Is Empty</h1>
+        <br>
+        <p class="text-center">
+            <a href="">Continue Shopping</a>
+        </p>
+    </div>
+</div>
+
+{% else %}
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my-title">Your Shopping Cart</h1>
+        <br>
+    </div>
+</div>
+
+<div class="row mx-auto">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 ">
+
+        <table class="table ">
+            <thead class="text-center">
+            <tr>
+               <th colspan="6">
+                   Cart Items
+               </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for cart_item in cart_items %}
+                <tr>
+                    <td width="25%">
+                        <a href="{{cart_item.product.get_url}}">
+                            <img src="{{ cart_item.product.product_image.url }}" width="100%" alt="random" class="float-left rounded ">
+
+                        </a>
+                    </td>
+
+                    <td width="45%" class="px-3">
+                        <b class="text-uppercase" style="letter-spacing: 0.2em;font-size: 16px;"><a href="{{cart_item.product.get_url}}">{{cart_item.product.name}}</a></b>
+                        <p class="text-secondary " style="font-size: 14px;">SKU : {{cart_item.product.id}}</p>
+                        <p class="text-success mt-2" style="font-size: 13px;">$ : {{cart_item.product.price}} </p>
+                    </td>
+                  
+                    <td width="8%" style="font-size: 12px;font-weight: bold;">Qty : {{ cart_item.quantity }} x</td>
+
+                    <td width="13%" style="font-size: 12px;font-weight: bold;">$ : {{ cart_item.sub_total }}</td>
+
+                    {% if cart_item.quantity < cart_item.product.stock %}
+                    <td width="7%">
+                        <a href="" class="custom_a"><i class="fa fa-plus"></i></a><br><br>
+                        &nbsp;<a href="" class="custom_a"><i class="fa fa-minus"></i></a><br><br>
+                        &nbsp;<a href="" class="custom_a"><i class="fa fa-trash"></i></a>
+                    </td>
+
+                    {% else %}
+                     <td>
+                        &nbsp;<a href="" ><i class="fa fa-minus"></i></a><br><br>
+                        &nbsp;<a href="" ><i class="fa fa-trash"></i></a>
+                    </td>
+                    {% endif %}
+                 </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+
+        <table class="table custom_table">
+            <thead class="custom_thead">
+            <tr>
+                <th colspan="2">
+                    Check Out
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td colspan="2">
+                    Please Review and Verify Your Cart Items  before proceeding with payment
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>Total Amount : &nbsp;&nbsp;&nbsp;<strong>{{total}} $</strong>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="mx-auto">
+            <a href="" class="btn btn-outline-primary btn-block ">Continue Shopping</a>
+            <a href="" class="btn btn-primary btn-block ">Pay Now</a>
+        </div>
+    </div>
+
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+
+

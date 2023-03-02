@@ -4,6 +4,8 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.db.models import Q
 from E_App.forms import ProductAddForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def AllProdCat(request, cat_slug = None):
@@ -54,7 +56,7 @@ def SearchResult(request):
 
 def AddProduct(request):
     if request.method == 'POST':
-        if request.user.is_authenticated:
+        if request.user.is_seller == True:
             form = ProductAddForm(request.POST, request.FILES)
             
             for field in form:
@@ -72,3 +74,32 @@ def AddProduct(request):
 
     form = ProductAddForm()
     return render(request, 'addproduct.html', {'form': form})
+
+@login_required
+def UpdateProduct(request, id):
+    if request.user.is_seller == True:
+        product = Product.objects.all().get(id=id)
+        form = ProductAddForm(request.POST or None, request.FILES, instance=product)
+        if form.is_valid():
+            form = form.save(commit=False)
+            if form.seller == request.user:
+                form.save()
+                return redirect('E_User:Dashboard')
+            else:
+                return redirect('/')
+    return render(request, 'addproduct.html', {'form':form, 'product':product})
+
+@login_required
+def UpdatCatalogue(request):
+    if request.user.is_seller == True:
+        products = Product.objects.all().filter(seller=request.user)
+
+    return render (request, 'updateproduct.html', {'products': products})
+
+@login_required
+def DeleteProduct(request, id):
+    product = Product.objects.get(id=id)
+    product.delete()
+    return redirect('E_App:UpdateCatalogue')
+        
+

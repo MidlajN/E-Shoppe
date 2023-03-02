@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import SellerCreationForm, BuyerCreationForm
 from django.contrib import messages, auth
 from django.contrib.auth.forms import AuthenticationForm
+from E_App.models import Product
 
 
 # Create your views here.
@@ -34,10 +35,11 @@ def seller_reg(request):
             form_seller.save()
             return redirect('E_App:AllProdCat')
         else:
-            form = SellerCreationForm()
+            form_seller = SellerCreationForm()
+            print(form_seller.errors, form_seller.non_field_errors)
             messages.info(request, 'Invalid Input')
     
-        return redirect('E_User:user')
+        return redirect('E_User:Register')
     
 
 def login(request):
@@ -69,10 +71,10 @@ def logout(request):
 def dashboard(request):
     
     if request.user.is_seller == True:
-        messages.info(request, 'User is Seller')
+        products = Product.objects.all().filter(seller=request.user)
         
     else:
         messages.info(request, 'User is Buyer')
         
     
-    return render(request, 'dashboard.html')
+    return render(request, 'dashboard.html', {'products': products})

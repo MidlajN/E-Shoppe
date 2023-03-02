@@ -4,15 +4,96 @@
 
 {% block content %}
 
-<div>
-    {% for msg in messages %}
-    <h1>{{msg}}</h1>
-    {% endfor %}
+<div class="container d-flex justify-content-center">
+    <div class="col-md-10 shadow-sm">
+        <div class="py-4 mt-3 px-5 rounded text-center shadow" style="background-color: rgb(42, 116, 206);">
+            <h4 style="color:white;"><b>Your Product</b></h4>
+        </div>
+
+
+        <div class="mt-4 px-5">
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-2 mt-1">
+                        {{form.name.label}}
+                    </div>
+                    <div class="col-sm-10 form-outline mb-4">
+                        {{form.name|attr:'class:form-control form-control-sm'|attr:'placeholder:Product name'}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2 mt-1">
+                        {{form.description.label}}
+                    </div>
+                    <div class="col-sm-10 form-outline mb-4">
+                        {{form.description|attr:'class:form-control form-control-sm'|attr:'placeholder:Description'}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2 mt-1">
+                        {{form.product_image.label}}
+                    </div>
+                    <div class="col-sm-10 form-outline mb-4">
+                        {{form.product_image|attr:'class:form-control form-control-sm'}}
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-2 mt-1">
+                        {{form.price.label}}
+                    </div>
+                    <div class="col-sm-10 form-outline mb-4">
+                        {{form.price|attr:'class:form-control form-control-sm'|attr:'placeholder:Price'}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2 mt-1">
+                        {{form.category.label}}
+                    </div>
+                    <div class="col-sm-10 form-outline mb-4">
+                        {{form.category|attr:'class:form-control form-control-sm'}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2 mt-1">
+                        {{form.stock.label}}
+                    </div>
+                    <div class="col-sm-10 form-outline mb-4">
+                        {{form.stock|attr:'class:form-control form-control-sm'|attr:'placeholder:Stock'}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2 mt-1">
+                        {{form.available.label}}
+                    </div>
+                    <div class="col-sm-10 form-outline mb-4">
+                        {{form.available}}
+                    </div>
+                </div>
+
+                <div class="py-3 d-flex justify-content-end">
+                    <button class="btn btn-primary" style="width:100%;">Add Product</button>
+
+                </div>
+
+                
+            </form>
+
+        </div>
+       
+
+
+    </div>
+
 </div>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>submit</button>
-</form>
+
 {% endblock %}

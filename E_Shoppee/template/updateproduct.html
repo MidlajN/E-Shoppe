@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if not products %}
+{% if request.user.is_seller == True %}
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="py-5 text-center">
+            You Dont Have Any Existing Products <br>
+            <a class="link-primary" href="{% url 'E_App:AddProduct' %}">
+                Add New Products
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% else %}
+    {% if request.user.is_seller == True %}
+        <div class="container">
+            <table class="table mt-5 ">
+
+                <thead class="text-center">
+                <tr>
+                <th colspan="4">
+                    Products
+                </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    {% for product in products %}
+                    
+                        <tr>
+                            <td width="20%">
+                                <a href="{{product.get_url}}">
+                                    <img src="{{ product.product_image.url }}" width="100%" alt="random" class="float-start rounded">
+                                </a>
+                            </td>
+
+                            <td width="50%" class="px-5 py-3 ">
+                                <b class="text-uppercase" style="letter-spacing: 0.2em;font-size: 16px;"><a href="{{product.get_url}}">{{product.name}}</a></b>
+                                <p class="text-secondary mt-2" style="font-size: 14px;">{{product.description}}</p>
+                                <p class="text-success" style="font-size: 13px;">$ : {{product.price}} </p>
+                            </td>
+                            
+                            <td class="text-muted" align="right">
+                                <a href="{% url 'E_App:UpdateProduct' product.id %}">
+                                    <i class="fa-solid fa-pen-to-square text-primary"></i> Update</a>
+                            </td>
+                        
+                            <td align="right">
+                                <a href="{% url 'E_App:DeleteProduct' product.id %}">
+                                    <i class="fa-regular fa-trash-can text-danger"></i></a>
+                            </td>
+                            
+                        </tr>
+                    
+                    {% endfor %}
+                        <tr>
+                            <td class="text-center" colspan="4"><a class="link-secondary" href="{% url 'E_User:Dashboard' %}"> Go Back </a></td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endif %}
+{% endblock %}

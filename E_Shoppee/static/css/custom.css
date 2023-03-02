@@ -12,6 +12,12 @@ body {
     font-family: 'Pacifico', cursive;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Dosis&family=Lilita+One&family=Nunito+Sans&family=Pacifico&display=swap');
+.subheading{
+    font-family: 'Lilita One', cursive;
+    font-size: 15px;
+}
+
 
 
 /* navbar */
@@ -152,24 +158,6 @@ a:hover {
     font-size: 1rem;
 }
 
-/* .section-products .single-product .part-2 .product-old-price {
-    position: relative;
-    padding: 0 7px;
-    margin-right: 2px;
-    opacity: 0.6;
-}
-
-.section-products .single-product .part-2 .product-old-price::after {
-    position: absolute;
-    content: "";
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: #444444;
-    transform: translateY(-50%);
-} */
-
 .prodname{
     font-size: medium;
     font-weight: bold;
@@ -182,4 +170,3 @@ a:hover {
     opacity: 70%;
 }
 
-/* Register Form */

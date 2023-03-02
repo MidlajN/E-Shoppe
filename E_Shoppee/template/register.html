@@ -9,7 +9,7 @@
 
         <div class="row">
             <div class="col-sm-5">
-                <a href="#" class="text-muted" id="buyer-form-link">
+                <a href="#" class="text-primary" id="buyer-form-link">
                     <div class="py-2 mt-2 nav-item usertype">
                         <b style="text-shadow:0px 1px 2px;">BUYER</b> 
                     </div>
@@ -89,6 +89,21 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-12 d-flex justify-content-center">
+                            {% for msg in messages %}
+                            <h style="font-size: 14px;color: red;">{{msg}}</h>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">
+                                
+                            </div>
+                            <div class="col-sm-11 d-flex justify-content-start ">
+                                <p class="text-muted" style="font-size: 12px;">Password Need To Be Atleast 8 Letters</p>
+                            </div>
+                        </div>
+
                         <div class="form-outline pb-5 pt-3">
                             <div class="row">
                                 <div class="col-sm-6 text-muted d-flex justify-content-start">
@@ -159,6 +174,15 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-sm-1 mt-1">
+                                
+                            </div>
+                            <div class="col-sm-11 d-flex justify-content-start ">
+                                <p class="text-muted" style="font-size: 12px;">Password Need To Be Atleast 8 Letters</p>
+                            </div>
+                        </div>
+
                         <div class="col-sm-12 d-flex justify-content-center">
                             {% for msg in messages %}
                             <h style="font-size: 14px;color: red;">{{msg}}</h>
@@ -190,15 +214,15 @@ $(function() {
     $('#buyer-form-link').click(function(e) {
 		$("#buyer-form").delay(100).fadeIn(100);
  		$("#seller-form").fadeOut(100);
-		$('#seller-form-link').removeClass('text-muted');
-		$(this).addClass('text-muted');
+		$('#seller-form-link').removeClass('text-primary');
+		$(this).addClass('text-primary');
 		e.preventDefault();
 	});
 	$('#seller-form-link').click(function(e) {
 		$("#seller-form").delay(100).fadeIn(100);
  		$("#buyer-form").fadeOut(100);
-		$('#buyer-form-link').removeClass('text-muted');
-		$(this).addClass('text-muted');
+		$('#buyer-form-link').removeClass('text-primary');
+		$(this).addClass('text-primary');
 		e.preventDefault();
 	});
 

@@ -57,8 +57,14 @@
                   <a class="dropdown-item disabled" style="color:blue;">{{user.username}}</a></li>
                 <li>
                   <a class="dropdown-item" href="{% url 'E_User:Logout' %}">Logout</a></li>
+                  {% if request.user.is_seller == True %}
                 <li>
                   <a class="dropdown-item" href="{% url 'E_User:Dashboard' %}">Dashboard</a></li>
+                {% else %}
+                <li>
+                  <a class="dropdown-item" href="#">Profile</a></li>
+                </li>
+                {% endif %}
                 {% else %}
                 <li>
                   <a class="dropdown-item" href="{% url 'E_User:Login' %}">Sign In</a></li>

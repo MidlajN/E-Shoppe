@@ -44,7 +44,7 @@
                     {% if product.stock <= 0 %}
                         <p style="color:red">Out of Stock</p>
                     {% else %}
-                        <a href="">
+                        <a href="{% url 'E_Cart:add_cart' product.id %}">
                             <button class="btn btn-primary py-1 px-5">Add To Cart</button>
                         </a>
                     {% endif %}

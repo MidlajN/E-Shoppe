@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from E_App.models import Product
 from django.contrib.auth.decorators import login_required
 from E_Cart.models import Cart, CartItem
@@ -47,3 +47,27 @@ def cart_details(request, total=0, counter=0, cart_items=None):
     except ObjectDoesNotExist:
         pass
     return render(request, 'cart.html', dict(cart_items=cart_items, total=total, counter=counter))
+
+
+@login_required(login_url='E_User:Login')
+def cart_remove(request, prod_id):
+    cart = Cart.objects.get(user=request.user)
+    product = get_object_or_404(Product, id=prod_id)
+    cart_item = CartItem.objects.get(product=product, cart=cart)
+
+    if cart_item.quantity > 1:
+        cart_item.quantity -= 1
+        cart_item.save()
+    else:
+        cart_item.delete()
+    
+    return redirect('E_Cart:cart_details')
+
+@login_required(login_url='E_User:Login')
+def full_remove(request, prod_id):
+    cart = Cart.objects.get(user=request.user)
+    product = get_object_or_404(Product, id=prod_id)
+    cart_item = CartItem.objects.get(product=product, cart=cart)
+    cart_item.delete()
+
+    return redirect('E_Cart:cart_details')

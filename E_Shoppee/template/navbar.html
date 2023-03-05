@@ -23,6 +23,18 @@
                 {% endfor %}
               </ul>
             </li>
+
+            {% if item_count > 0 %}
+       
+        <li class="nav-item">
+          <a class="nav-link " href="{% url 'E_Cart:cart_details' %}">
+            
+            <i class="fa fa-shopping-cart fa-lg material-icons" style="color:rgb(18, 101, 216);"></i>{{item_count}}
+            
+          </a>
+        </li>
+       
+        {% endif %}
   
           </ul>
     
@@ -60,10 +72,6 @@
                   {% if request.user.is_seller == True %}
                 <li>
                   <a class="dropdown-item" href="{% url 'E_User:Dashboard' %}">Dashboard</a></li>
-                {% else %}
-                <li>
-                  <a class="dropdown-item" href="#">Profile</a></li>
-                </li>
                 {% endif %}
                 {% else %}
                 <li>

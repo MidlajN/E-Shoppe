@@ -15,7 +15,7 @@
         <h1 class="text-center">Your Cart Is Empty</h1>
         <br>
         <p class="text-center">
-            <a href="">Continue Shopping</a>
+            <a href="{% url 'E_App:AllProdCat' %}">Continue Shopping</a>
         </p>
     </div>
 </div>
@@ -63,15 +63,15 @@
 
                     {% if cart_item.quantity < cart_item.product.stock %}
                     <td width="7%">
-                        <a href="" class="custom_a"><i class="fa fa-plus"></i></a><br><br>
-                        &nbsp;<a href="" class="custom_a"><i class="fa fa-minus"></i></a><br><br>
-                        &nbsp;<a href="" class="custom_a"><i class="fa fa-trash"></i></a>
+                        <a href="{% url 'E_Cart:add_cart' cart_item.product.id %}  " class=""><i class="fa fa-plus"></i></a><br><br>
+                        &nbsp;<a href="{% url 'E_Cart:cart_remove' cart_item.product.id %}" class=""><i class="fa fa-minus"></i></a><br><br>
+                        &nbsp;<a href="{% url 'E_Cart:full_remove' cart_item.product.id %}" class=""><i class="fa fa-trash"></i></a>
                     </td>
 
                     {% else %}
                      <td>
-                        &nbsp;<a href="" ><i class="fa fa-minus"></i></a><br><br>
-                        &nbsp;<a href="" ><i class="fa fa-trash"></i></a>
+                        &nbsp;<a href="{% url 'E_Cart:cart_remove' cart_item.product.id %}" ><i class="fa fa-minus"></i></a><br><br>
+                        &nbsp;<a href="{% url 'E_Cart:full_remove' cart_item.product.id %}" ><i class="fa fa-trash"></i></a>
                     </td>
                     {% endif %}
                  </tr>

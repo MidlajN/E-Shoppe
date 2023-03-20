@@ -52,8 +52,9 @@ def SearchResult(request):
         number = len(product)
 
         return render(request, 'search.html', {'query': query, 'products': product, 'number': number})
-    
 
+
+@login_required(login_url='E_User:Login')
 def AddProduct(request):
     if request.method == 'POST':
         if request.user.is_seller == True:
@@ -61,7 +62,7 @@ def AddProduct(request):
             
             for field in form:
                 print(field.value())
-
+                
             if form.is_valid():
                 obj = form.save(commit=False)
                 obj.seller = request.user
@@ -75,7 +76,8 @@ def AddProduct(request):
     form = ProductAddForm()
     return render(request, 'addproduct.html', {'form': form})
 
-@login_required
+
+@login_required(login_url='E_User:Login')
 def UpdateProduct(request, id):
     if request.user.is_seller == True:
         product = Product.objects.all().get(id=id)
@@ -89,14 +91,16 @@ def UpdateProduct(request, id):
                 return redirect('/')
     return render(request, 'addproduct.html', {'form':form, 'product':product})
 
-@login_required
+
+@login_required(login_url='E_User:Login')
 def UpdatCatalogue(request):
     if request.user.is_seller == True:
         products = Product.objects.all().filter(seller=request.user)
-
+        
     return render (request, 'updateproduct.html', {'products': products})
 
-@login_required
+
+@login_required(login_url='E_User:Login')
 def DeleteProduct(request, id):
     product = Product.objects.get(id=id)
     product.delete()

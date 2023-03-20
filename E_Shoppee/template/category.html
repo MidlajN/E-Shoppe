@@ -45,7 +45,9 @@
                             <div class="part-1">
                                 <img class="card-img part-1" src="{{product.product_image.url}}" alt="{{product.name}}">
                                 <ul>
+                                    {% if product.stock > 0 %}
                                     <li><a href="{% url 'E_Cart:add_cart' prod_id=product.id %}"><i class="fas fa-shopping-cart"></i></a></li>
+                                    {% endif %}
                                     <li><a href="#"><i class="fas fa-heart"></i></a></li>
                                     <li><a href="{{product.get_url}}"><i class="fas fa-expand"></i></a></li>
                                 </ul>

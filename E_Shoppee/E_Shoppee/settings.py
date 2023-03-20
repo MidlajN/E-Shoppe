@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'E_App',
     'E_User',
     'E_Cart',
-
+    'E_Order',
 ]
 
 MIDDLEWARE = [

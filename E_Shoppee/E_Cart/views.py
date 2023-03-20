@@ -43,7 +43,7 @@ def cart_details(request, total=0, counter=0, cart_items=None):
         for cart_item in cart_items:
             total += (cart_item.product.price * cart_item.quantity)
             counter += cart_item.quantity
-
+    
     except ObjectDoesNotExist:
         pass
     return render(request, 'cart.html', dict(cart_items=cart_items, total=total, counter=counter))

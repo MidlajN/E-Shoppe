@@ -1,89 +1,92 @@
 <div class="sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow py-1">
-      <div class="container-fluid ">
-        <a></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="collapse navbar-collapse" id="navbarScroll">
-          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
-    
-            <li class="nav-item {% if 'E_App' in request.path %} active {% endif %}">
-              <a class="nav-link" aria-current="page" href="{% url 'E_App:AllProdCat' %}">Products</a>
-            </li>
-    
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="" id="navbarScrollingDropdown"
-                 role="button" data-bs-toggle="dropdown" aria-expanded="false">Category
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                {% for cat in links %}
-                  <li><a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a></li>
-                {% endfor %}
-              </ul>
-            </li>
-
-            {% if item_count > 0 %}
-       
-        <li class="nav-item">
-          <a class="nav-link " href="{% url 'E_Cart:cart_details' %}">
-            
-            <i class="fa fa-shopping-cart fa-lg material-icons" style="color:rgb(18, 101, 216);"></i>{{item_count}}
-            
-          </a>
-        </li>
-       
-        {% endif %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow py-1">
+    <div class="container-fluid ">
+      <a></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
   
-          </ul>
-    
-          <div class="d-flex ">
-    
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+  
+          <li class="nav-item {% if 'E_App' in request.path %} active {% endif %}">
+            <a class="nav-link" aria-current="page" href="{% url 'E_App:AllProdCat' %}">Products</a>
+          </li>
+  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" id="navbarScrollingDropdown"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">Category
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+              {% for cat in links %}
+                <li><a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+
+          {% if item_count > 0 %}
+      
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'E_Cart:cart_details' %}">
+          
+          <i class="fa fa-shopping-cart fa-lg material-icons" style="color:rgb(18, 101, 216);"></i>{{item_count}}
+          
+        </a>
+      </li>
+      
+      {% endif %}
+
+        </ul>
+  
+        <div class=" d-flex ">
+
+          <div class="col-sm-11 ">
             <form class=" d-flex" style="padding-right:8px;" action="{% url 'E_App:Search' %}"  method="get">
-              
+            
               <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search" required>
               <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
             </form>
-    
-            <div class="dropdown" style="margin:auto;">
-              <a
-                class="dropdown-toggle d-flex align-items-center hidden-arrow"
-                href=""
-                id="navbarDropdownMenuAvatar"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
 
-                <img
-                        src="https://i.stack.imgur.com/dr5qp.jpg"
-                        class="rounded-circle"
-                        height="25"
-                        alt="D user"
-                        loading="lazy" />
-              </a>
-    
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                {% if user.is_authenticated %}
-                <li>
-                  <a class="dropdown-item disabled" style="color:blue;">{{user.username}}</a></li>
-                <li>
-                  <a class="dropdown-item" href="{% url 'E_User:Logout' %}">Logout</a></li>
-                  {% if request.user.is_seller == True %}
-                <li>
-                  <a class="dropdown-item" href="{% url 'E_User:Dashboard' %}">Dashboard</a></li>
-                {% endif %}
-                {% else %}
-                <li>
-                  <a class="dropdown-item" href="{% url 'E_User:Login' %}">Sign In</a></li>
-                <li>
-                  <a class="dropdown-item" href="{% url 'E_User:Register' %}">Register</a></li>
-                {% endif %}
-              </ul>
-            </div>
+          </div>
+  
+          <div class="dropdown " style="margin:auto;">
+            <a
+              class=" hidden-arrow"
+              href=""
+              id="navbarDropdownMenuAvatar"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+
+              {% if user.is_authenticated %}
+              <i class="fa-solid fa-circle-user fa-xl" style="color:rgb(18, 101, 216);"></i>
+              {% else %}
+              <i class="fa-regular fa-circle-user fa-xl" style="color:white"></i>
+              {% endif %}  
+
+            </a>
+  
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+              {% if user.is_authenticated %}
+              <li>
+                <a class="dropdown-item disabled" style="color:blue;">{{user.username}}</a></li>
+              <li>
+                <a class="dropdown-item" href="{% url 'E_User:Logout' %}">Logout</a></li>
+                {% if request.user.is_seller == True %}
+              <li>
+                <a class="dropdown-item" href="{% url 'E_User:Dashboard' %}">Dashboard</a></li>
+              {% endif %}
+              {% else %}
+              <li>
+                <a class="dropdown-item" href="{% url 'E_User:Login' %}">Sign In</a></li>
+              <li>
+                <a class="dropdown-item" href="{% url 'E_User:Register' %}">Register</a></li>
+              {% endif %}
+            </ul>
           </div>
         </div>
       </div>
-    </nav>
     </div>
-    
+  </nav>
+</div>
+  

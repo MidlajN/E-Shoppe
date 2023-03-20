@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SellerCreationForm, BuyerCreationForm
 from django.contrib import messages, auth
 from django.contrib.auth.forms import AuthenticationForm
 from E_App.models import Product
-
+from E_Order.models import OrderItem
 
 # Create your views here.
 def base_acc(request):
@@ -25,7 +25,7 @@ def buyer_reg(request):
             form_buyer = BuyerCreationForm()
             messages.info(request, 'Invalid Input')
 
-        return redirect('E_User:user')
+        return redirect('E_User:Register')
     
 
 def seller_reg(request):
@@ -72,9 +72,10 @@ def dashboard(request):
     
     if request.user.is_seller == True:
         products = Product.objects.all().filter(seller=request.user)
+        ordered_prod = OrderItem.objects.all().filter(seller = request.user)
         
     else:
         messages.info(request, 'User is Buyer')
         
     
-    return render(request, 'dashboard.html', {'products': products})
+    return render(request, 'dashboard.html', {'products': products, 'ordered_prods': ordered_prod})

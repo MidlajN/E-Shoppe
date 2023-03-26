@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SellerCreationForm, BuyerCreationForm
 from django.contrib import messages, auth
@@ -77,5 +78,14 @@ def dashboard(request):
     else:
         messages.info(request, 'User is Buyer')
         
-    
     return render(request, 'dashboard.html', {'products': products, 'ordered_prods': ordered_prod})
+
+
+def UpdateStatus(request, id):
+    product = OrderItem.objects.get(id=id)
+    if request.method == 'POST':
+        value = request.POST['status']
+        OrderItem.objects.filter(id=id).update(status= value)
+        return redirect('E_User:Dashboard')
+    
+    return render(request, 'orderdetail.html', {'product': product})

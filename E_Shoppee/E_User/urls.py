@@ -8,6 +8,7 @@ urlpatterns = [
     path('buyer_reg/', views.buyer_reg, name='Buyer_Reg'),
     path('login/',views.login, name='Login' ),
     path('logout/', views.logout, name='Logout'),
-    path('dashboard/', views.dashboard, name='Dashboard')
+    path('dashboard/', views.dashboard, name='Dashboard'),
+    path('updatestatus/<int:id>/', views.UpdateStatus, name='UpdateStatus')
 
 ]

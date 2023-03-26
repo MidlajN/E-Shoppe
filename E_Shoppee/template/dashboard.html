@@ -47,32 +47,39 @@
                     {% else %}
 
                     {% for ordered_prod in ordered_prods %}
-                    <tr>
-                        <tr>
+                    
+                    <tr>  
+                        <tr>        
                             <td width="10%">
-                                <a href="{{product.get_url}}">
+                                <a href="{% url 'E_User:UpdateStatus' ordered_prod.id %}"> 
                                     <img src="{{ ordered_prod.products.product_image.url }}" width="100%" alt="random" class="float-start rounded">
                                 </a>
                             </td> 
+                                    
                             <td width="40%" class="text-uppercase">
-                                <b style="letter-spacing: 0.2em;"><a href="">{{ordered_prod.products.name}}</a></b>
+                                <a href="{% url 'E_User:UpdateStatus' ordered_prod.id %}"> 
+                                <b style="letter-spacing: 0.2em;">{{ordered_prod.products.name}}</b>
                                 <p class="text-primary"><b><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> : {{ordered_prod.products.price}}</b></p>
+                                </a>
                             </td> 
+        
+
                             <td>
+                                <a href="{% url 'E_User:UpdateStatus' ordered_prod.id %}"> 
                                 <b>Name : {{ordered_prod.order.name}}</b>
                                 <p><b>Shipping Address :</b>  {{ordered_prod.order.shipping_address}} <br>
                                     <b>Quantity : </b>  {{ordered_prod.quantity}} <br>
                                     <b>Total Price :  <span class="text-primary">{{ordered_prod.total_price}} </b><i class="fa-sharp fa-solid fa-indian-rupee-sign text-primary"></i></span> </p>
-                                <p class="text-muted">Ordered In : {{ordered_prod.order.order_date}}</p>
+                                <p class="text-muted">Ordered In : {{ordered_prod.order.order_date}}</p></a>
                             </td>
-                            <td>
-                                <p class="nav-item {% if ordered_prod.order.status == 'pending' %} btn btn-danger 
-                                            {% elif ordered_prod.order.status == 'shipped' %} btn btn-primary 
-                                            {% else %} btn btn-success {% endif %} ">{{ordered_prod.order.status}}</p>
+                            <td>                      
+                                <a href="{% url 'E_User:UpdateStatus' ordered_prod.id %}"><p class="nav-item {% if ordered_prod.status == 'pending' %} btn btn-danger 
+                                            {% elif ordered_prod.status == 'shipped' %} btn btn-primary 
+                                            {% else %} btn btn-success {% endif %} "><b>{{ordered_prod.status}}</b></p></a>
                             </td>
-
-                        </tr>                                                                  
+                        </tr>                                                              
                     </tr>
+                    </a>   
                     {% endfor %}
                     {% endif %}
                 </tbody>

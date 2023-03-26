@@ -12,12 +12,6 @@ class Order(models.Model):
     shipping_address = models.TextField(max_length=400)
     city = models.CharField(max_length=250, null=True)
     total_amount = models.IntegerField(null=True)
-    order_status = (
-        ('pending','pending'),
-        ('shipped', 'shipped'),
-        ('delivered', 'delivered'),
-    )
-    status = models.CharField(max_length=250, choices=order_status, default='pending')
     order_date = models.DateTimeField(auto_now_add=True)
     order_update = models.DateTimeField(auto_now=True)
 
@@ -36,6 +30,12 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=1)
     total_price = models.IntegerField()
     seller = models.ForeignKey(User , null=True, on_delete=models.CASCADE)
+    order_status = (
+        ('pending','pending'),
+        ('shipped', 'shipped'),
+        ('delivered', 'delivered'),
+    )
+    status = models.CharField(max_length=250, choices=order_status, default='pending')
 
     class Meta:
         db_table = 'OrderItem'

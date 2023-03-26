@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Ordered Product Details and Total Amount -->
+        <div class="col-md-6 ">
+            <div class="py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{product.products.product_image.url}}" width="100%" alt="{{product.products.name}}">
+                    </div>
+
+                    <div class="col-md-8  mt-2">
+                        <h3 class="text-uppercase" style="letter-spacing: .2em;"><b>{{product.products.name}}</b></h3>
+                        <p style="font-size: 12px;">{{product.products.description}}</p>
+                        <small>
+                            <strong>
+                                Price Per Unit :<h class="text-muted"> {{product.products.price}} <i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> </h><br>
+                                Ordered Quantity :<h class="text-muted"> {{product.quantity}} x</h> <br>
+                                Total Price : <h class="text-danger">{{product.total_price}}  <i class="fa-sharp fa-solid fa-indian-rupee-sign"></i></h><br>
+                                <span class="text-uppercase {% if product.status == 'pending' %} text-danger
+                                {% elif product.status == 'shipped' %} text-primary
+                                {% else %} text-success {% endif %} ">{{product.status}}</span>
+                            </strong>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Order Details and Shipping Address -->
+        <div class="col-md-6">
+            <div class="py-5">
+                <div class="shadow rounded sticky">
+                    <div class="card-title">
+                        <h4 class="text-uppercase text-center py-4 text-primary" style="letter-spacing: .2em;" ><b>Order Details</b></h4>
+                    </div>
+                    <div class="card-body">
+                        
+                        <p class="px-4">
+                            <b>Name : </b> &nbsp; {{product.order.name}} <br>
+                            <b>Email : </b> &nbsp; {{product.order.email}} <br>
+                            <b>Phone : </b> &nbsp; {{product.order.phone}} <br>
+                        </p>
+                        <p class="px-4">
+                            <b>Shipping Address : </b><br> 
+                            &emsp;&emsp;&emsp;
+                            {{product.order.shipping_address}}<br>
+                            &emsp;&emsp;&emsp;
+                            <b>City : </b>{{product.order.city}}
+                        </p>
+                        <p class="px-4 text-muted">
+                            <small>Ordered On {{product.order.order_date}}</small>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+    
+        </div>
+    </div>
+    
+    
+    <div class="d-flex justify-content-center">
+        <div class="col-md-4 card shadow-sm">
+            <div class="text-center mt-4">
+                <strong>Change The Status of The Order</strong>
+                <form class="d-flex justify-content-center py-2" method="post" action="">
+                    {% csrf_token %}
+                    <div>
+                        <select class="btn-primary form-select nav-item" style="width:80%;height:auto" name="status" required>
+                            <option selected disabled="True">STATUS</option>
+                            <option value="pending">PENDING</option>
+                            <option value="shipped">SHIPPED</option>
+                            <option value="delivered">delivered</option>
+                        </select><br>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" class="btn btn-outline-danger">Change</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div> 
+
+    
+
+</div>
+
+{% endblock %}

@@ -1,5 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from E_User.models import User
+from E_Order.models import Order
+from django import forms
 
 
 class SellerCreationForm(UserCreationForm):
@@ -26,5 +28,6 @@ class BuyerCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
 
 

@@ -29,9 +29,11 @@
 
                 <thead class="text-center">
                 <tr>
-                <th colspan="3">
-                    Products
-                </th>
+                    <th class="nav-item" colspan="4">Orders</th>
+                </tr>
+                <tr>
+                    <th colspan="2">Products</th>
+                    <th colspan="2">Order Details</th>
                 </tr>
                 </thead>
 
@@ -39,46 +41,39 @@
                     {% if not products %}
                         <tr>
                             <td class="text-center">
-                                You Dont Have Any Products<br>
-                                <a class="link-primary" href="{% url 'E_App:AddProduct' %}">Add New Products</a>
+                                You Dont Have Any Orders<br>
                             </td>
                         </tr>
                     {% else %}
+
                     {% for ordered_prod in ordered_prods %}
-
                     <tr>
-                        <td width="20%">
-                            <a href="{{product.get_url}}">
-                                <img src="{{ product.product_image.url }}" width="100%" alt="random" class="float-start rounded">
-                            </a>
-                        </td>
+                        <tr>
+                            <td width="10%">
+                                <a href="{{product.get_url}}">
+                                    <img src="{{ ordered_prod.products.product_image.url }}" width="100%" alt="random" class="float-start rounded">
+                                </a>
+                            </td> 
+                            <td width="40%" class="text-uppercase">
+                                <b style="letter-spacing: 0.2em;"><a href="">{{ordered_prod.products.name}}</a></b>
+                                <p class="text-primary"><b><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> : {{ordered_prod.products.price}}</b></p>
+                            </td> 
+                            <td>
+                                <b>Name : {{ordered_prod.order.name}}</b>
+                                <p><b>Shipping Address :</b>  {{ordered_prod.order.shipping_address}} <br>
+                                    <b>Quantity : </b>  {{ordered_prod.quantity}} <br>
+                                    <b>Total Price :  <span class="text-primary">{{ordered_prod.total_price}} </b><i class="fa-sharp fa-solid fa-indian-rupee-sign text-primary"></i></span> </p>
+                                <p class="text-muted">Ordered In : {{ordered_prod.order.order_date}}</p>
+                            </td>
+                            <td>
+                                <p class="nav-item {% if ordered_prod.order.status == 'pending' %} btn btn-danger 
+                                            {% elif ordered_prod.order.status == 'shipped' %} btn btn-primary 
+                                            {% else %} btn btn-success {% endif %} ">{{ordered_prod.order.status}}</p>
+                            </td>
 
-                        <td width="70%" class="px-5 py-3 text-uppercase">
-                            <b style="letter-spacing: 0.2em;"><a href="">{{ordered_prod.products.name}}</a></b>
-                            <p class="text-muted mt-2" style="font-size: 12px;">{{ordered_prod.products.description}}</p>
-                        </td>
-                        
-                        <td class="text-dark py-3">$ : {{ordered_prod.product.price}} </td>
+                        </tr>                                                                  
                     </tr>
                     {% endfor %}
-                        <!-- {% for product in products %}
-                        
-                            <tr>
-                                <td width="20%">
-                                    <a href="{{product.get_url}}">
-                                        <img src="{{ product.product_image.url }}" width="100%" alt="random" class="float-start rounded">
-                                    </a>
-                                </td>
-
-                                <td width="70%" class="px-5 py-3 text-uppercase">
-                                    <b style="letter-spacing: 0.2em;"><a href="">{{product.name}}</a></b>
-                                    <p class="text-muted mt-2" style="font-size: 12px;">{{product.description}}</p>
-                                </td>
-                                
-                                <td class="text-dark py-3">$ : {{product.price}} </td>
-                            </tr>
-                        
-                        {% endfor %} -->
                     {% endif %}
                 </tbody>
             </table>

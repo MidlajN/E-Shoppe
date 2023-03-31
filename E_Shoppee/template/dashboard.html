@@ -38,7 +38,7 @@
                 </thead>
 
                 <tbody>
-                    {% if not products %}
+                    {% if not ordered_prods %}
                         <tr>
                             <td class="text-center">
                                 You Dont Have Any Orders<br>
@@ -48,8 +48,8 @@
 
                     {% for ordered_prod in ordered_prods %}
                     
-                    <tr>  
-                        <tr>        
+                    <tr class="{% if ordered_prod.status == 'cancel' %} text-secondary {% endif %}">  
+                               
                             <td width="10%">
                                 <a href="{% url 'E_User:UpdateStatus' ordered_prod.id %}"> 
                                     <img src="{{ ordered_prod.products.product_image.url }}" width="100%" alt="random" class="float-start rounded">
@@ -75,9 +75,9 @@
                             <td>                      
                                 <a href="{% url 'E_User:UpdateStatus' ordered_prod.id %}"><p class="nav-item {% if ordered_prod.status == 'pending' %} btn btn-danger 
                                             {% elif ordered_prod.status == 'shipped' %} btn btn-primary 
-                                            {% else %} btn btn-success {% endif %} "><b>{{ordered_prod.status}}</b></p></a>
+                                            {% elif ordered_prod.status == 'delivered' %} btn btn-success {% else %} btn btn-secondary   {% endif %} "><b>{{ordered_prod.status}}</b></p></a>
                             </td>
-                        </tr>                                                              
+                                                                                     
                     </tr>
                     </a>   
                     {% endfor %}
@@ -85,5 +85,192 @@
                 </tbody>
             </table>
         </div>
+
+    {% elif request.user.is_buyer == True %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="py-3">
+                    {% if not products %}
+                    <div>
+                        <div class="text-center">
+                            <br>
+                            <h1 class="text-center">Your Cart Is Empty</h1>
+                            <br>
+                            <p class="text-center text-uppercase">
+                                <a href="{% url 'E_App:AllProdCat' %}">Continue Shopping</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    {% else %}
+                    <div>
+                        <div class="text-center">
+                            <br>
+                            <h1 class="text-center my-title">Your Shopping Cart</h1>
+                            <br>
+                        </div>
+                    </div>
+
+                    <div class="row mx-auto">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 ">
+
+                            <table class="table ">
+                                <thead class="text-center">
+                                <tr>
+                                <th colspan="6">
+                                    Cart Items
+                                </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for product in products %}
+                                    <tr>
+                                        <td width="25%">
+                                            <a href="{{product.product.get_url}}">
+                                                <img src="{{ product.product.product_image.url }}" width="100%" alt="random" class="float-left rounded ">
+
+                                            </a>
+                                        </td>
+
+                                        <td width="45%" class="px-3">
+                                            <b class="text-uppercase" style="letter-spacing: 0.2em;font-size: 16px;"><a href="{{product.product.get_url}}">{{cart_item.product.name}}</a></b>
+                                            <p class="text-secondary " style="font-size: 14px;">SKU : {{product.product.id}}</p>
+                                            <p class="text-success mt-2" style="font-size: 13px;">$ : {{product.product.price}} </p>
+                                        </td>
+                                    
+                                        <td width="8%" style="font-size: 12px;font-weight: bold;">Qty : {{ product.quantity }} x</td>
+
+                                        <td width="13%" style="font-size: 12px;font-weight: bold;">$ : {{ product.sub_total }}</td>
+
+                                        {% if product.quantity < product.product.stock %}
+                                        <td width="7%">
+                                            <a href="{% url 'E_Cart:add_cart' product.product.id %}  " class=""><i class="fa fa-plus"></i></a><br><br>
+                                            &nbsp;<a href="{% url 'E_Cart:cart_remove' product.product.id %}" class=""><i class="fa fa-minus"></i></a><br><br>
+                                            &nbsp;<a href="{% url 'E_Cart:full_remove' product.product.id %}" class=""><i class="fa fa-trash"></i></a>
+                                        </td>
+
+                                        {% else %}
+                                        <td>
+                                            &nbsp;<a href="{% url 'E_Cart:cart_remove' product.product.id %}" ><i class="fa fa-minus"></i></a><br><br>
+                                            &nbsp;<a href="{% url 'E_Cart:full_remove' product.product.id %}" ><i class="fa fa-trash"></i></a>
+                                        </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+
+                            <table class="table custom_table">
+                                <thead class="custom_thead">
+                                <tr>
+                                    <th colspan="2">
+                                        Check Out
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        Please Review and Verify Your Cart Items  before proceeding with payment
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br>Total Amount : &nbsp;&nbsp;&nbsp;<strong>{{total}} $</strong>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="mx-auto">
+                                <a href="{% url 'E_App:AllProdCat' %}" class="btn btn-outline-primary btn-block ">Continue Shopping</a>
+                                <a href="{% url 'E_Order:order' %}" class="btn btn-primary btn-block ">Order Now</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endif %}
+
+                    </div>
+                    
+                </div>
+
+
+                <div class="col-sm-6 shadow rounded">
+                    <table class="table table-hover mt-3">
+
+                        <thead class="text-center">
+                        <tr>
+                            <th class="nav-item" colspan="4">Orders</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Products</th>
+                            <th colspan="2">Order Details</th>
+                        </tr>
+                        </thead>
+        
+                        <tbody>
+                            {% if not ordered_prods %}
+                                <tr>
+                                    <td class="text-center">
+                                        You Dont Have Any Orders<br>
+                                    </td>
+                                </tr>
+                            {% else %}
+        
+                            {% for ordered_prod in ordered_prods %}
+                            
+                            <tr>  
+                                <tr>        
+                                    <td width="10%">
+                                        <a href="{% url 'E_User:UpdateStatus' ordered_prod.id %}"> 
+                                            <img src="{{ ordered_prod.products.product_image.url }}" width="100%" alt="random" class="float-start rounded">
+                                        </a>
+                                    </td> 
+                                            
+                                    <td width="40%" class="text-uppercase">
+                                        <a href="{% url 'E_User:UpdateStatus' ordered_prod.id %}"> 
+                                        <b style="letter-spacing: 0.2em;">{{ordered_prod.products.name}}</b>
+                                        <p class="text-primary"><b><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> : {{ordered_prod.products.price}}</b></p>
+                                        </a>
+                                    </td> 
+                
+        
+                                    <td>
+                                        <a href="{% url 'E_User:UpdateStatus' ordered_prod.id %}"> 
+                                        <b>Name : {{ordered_prod.order.name}}</b>
+                                        <p>
+                                            <b>Quantity : </b>  {{ordered_prod.quantity}} <br>
+                                            <b>Total Price :  <span class="text-primary">{{ordered_prod.total_price}} </b><i class="fa-sharp fa-solid fa-indian-rupee-sign text-primary"></i></span> </p>
+                                        <p class="text-muted">Ordered In : {{ordered_prod.order.order_date}}</p></a>
+                                    </td>
+                                    <td>                      
+                                        <a href="{% url 'E_User:UpdateStatus' ordered_prod.id %}"><p class="nav-item {% if ordered_prod.status == 'pending' %} text-danger 
+                                                    {% elif ordered_prod.status == 'shipped' %}  text-primary 
+                                                    {% else %} text-success {% endif %} "><b>{{ordered_prod.status}}</b></p></a>
+                                    </td>
+                                </tr>                                                              
+                            </tr>
+                            </a>   
+                            {% endfor %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+        </div>
+
+ 
     {% endif %}
 {% endblock %}

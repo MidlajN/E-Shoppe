@@ -20,7 +20,7 @@
                                 Price Per Unit :<h class="text-muted"> {{product.products.price}} <i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> </h><br>
                                 Ordered Quantity :<h class="text-muted"> {{product.quantity}} x</h> <br>
                                 Total Price : <h class="text-danger">{{product.total_price}}  <i class="fa-sharp fa-solid fa-indian-rupee-sign"></i></h><br>
-                                <span class="text-uppercase {% if product.status == 'pending' %} text-danger
+                                Status : <span class="text-uppercase {% if product.status == 'pending' %} text-danger
                                 {% elif product.status == 'shipped' %} text-primary
                                 {% else %} text-success {% endif %} ">{{product.status}}</span>
                             </strong>
@@ -55,6 +55,18 @@
                             <small>Ordered On {{product.order.order_date}}</small>
                         </p>
 
+                        {% if request.user.is_buyer == True %}
+                            {% if product.status != 'cancel' and product.status != 'delivered'  %}
+                                <form method="post" action="{% url 'E_User:UpdateStatus' product.id %}">
+                                    {% csrf_token %}
+                                    <p class="px-4 text-danger">
+                                        <small><b> Cancel Your Order</b></small> &nbsp; &nbsp;<button class="btn btn-outline-danger btn-sm px-3 py-0" type="submit"> Confirm </button>
+                                    </p>
+                                    
+                                </form>
+                            {% endif %}
+                        {% endif %}
+
                     </div>
 
                 </div>
@@ -64,7 +76,7 @@
         </div>
     </div>
     
-    
+    {% if request.user.is_seller == True and product.status != 'cancel'  %}
     <div class="d-flex justify-content-center">
         <div class="col-md-4 card shadow-sm">
             <div class="text-center mt-4">
@@ -88,9 +100,7 @@
             </div>
         </div>
     </div> 
-
-    
-
+    {% endif %}
 </div>
 
 {% endblock %}

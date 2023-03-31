@@ -34,6 +34,7 @@ class OrderItem(models.Model):
         ('pending','pending'),
         ('shipped', 'shipped'),
         ('delivered', 'delivered'),
+        ('cancel', 'cancel'),
     )
     status = models.CharField(max_length=250, choices=order_status, default='pending')
 

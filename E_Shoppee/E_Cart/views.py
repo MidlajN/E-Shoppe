@@ -3,6 +3,7 @@ from E_App.models import Product
 from django.contrib.auth.decorators import login_required
 from E_Cart.models import Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
 
 
 # Create your views here.
@@ -31,7 +32,7 @@ def add_cart(request, prod_id):
                 cart = cart
             )
             cart_item.save()
-        return redirect('E_Cart:cart_details')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required(login_url='E_User:Login')
@@ -61,13 +62,14 @@ def cart_remove(request, prod_id):
     else:
         cart_item.delete()
     
-    return redirect('E_Cart:cart_details')
+    # return redirect('E_Cart:cart_details')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-@login_required(login_url='E_User:Login')
+@login_required(login_url='E_User:Login')   
 def full_remove(request, prod_id):
     cart = Cart.objects.get(user=request.user)
     product = get_object_or_404(Product, id=prod_id)
     cart_item = CartItem.objects.get(product=product, cart=cart)
     cart_item.delete()
 
-    return redirect('E_Cart:cart_details')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

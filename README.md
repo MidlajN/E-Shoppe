@@ -9,7 +9,7 @@
   <h1 align="center">E Shoppee</h1>
 </p>
 
-An E-Commerce Web Application which provide every functionalities of a typical E-Commerce platform. It provide user with various product details for purchase. The user can register as either Buyer or Seller which enables the user to their own product through the platform directly. The system is implemented using Python's web framework Django.
+An E-Commerce Web Application which provide every functionalities of a typical E-Commerce platform. It provide user with various product details for purchase. The user can register as either Buyer or Seller which enables the user to sell their own product through the platform directly. The system is implemented using Python's web framework Django.
 <br><br>
 
 #### Technologies Used In The Project : 

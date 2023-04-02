@@ -2,6 +2,10 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block title %} 
+   Sign In - E Shoppee
+{% endblock %}
+
 {% block content %}
 
 <div class="container py-5 d-flex justify-content-center">
@@ -35,7 +39,7 @@
                     <div class="form-outline pb-5 pt-3">
                         <div class="row">
                             <div class="col-sm-6 text-muted d-flex justify-content-start">
-                                <h style="font-size: 13px;"> Doesn't Have An Account? <a href="" style="color:blue">Sign Up Here</a> </h>
+                                <h style="font-size: 13px;"> Doesn't Have An Account? <a href="{% url 'E_User:Register' %}" style="color:blue">Sign Up Here</a> </h>
                             </div>
                             <div class="col-sm-6">
                                 <button type="submit" name="register-submit" class="btn btn-outline-primary btn-sm btn-block" style="width: 100%;">Log In</button>

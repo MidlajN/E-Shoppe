@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %} 
+    Dashboard - E Shoppee
+{% endblock %}
+
 {% block content %}
     {% if request.user.is_seller == True %}
         <div class="container">

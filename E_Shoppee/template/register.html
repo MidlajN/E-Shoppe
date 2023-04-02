@@ -2,6 +2,10 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block title %} 
+    Sign Up - E Shoppee
+{% endblock %}
+
 {% block content %}
 
 <div class="container py-5 d-flex justify-content-center">
@@ -9,7 +13,7 @@
 
         <div class="row">
             <div class="col-sm-5">
-                <a href="#" class="text-primary" id="buyer-form-link">
+                <a href="" class="text-primary" style="width: 100%;" id="buyer-form-link">
                     <div class="py-2 mt-2 nav-item usertype">
                         <b style="text-shadow:0px 1px 2px;">BUYER</b> 
                     </div>
@@ -19,11 +23,11 @@
                 <i class="fa-solid fa-user" style="color:blue;"></i>
             </div>
             <div class="col-sm-5">
-                <a href="#" id="seller-form-link">
+                <a href=""  style="width: 100%;" id="seller-form-link">
                     <div class="py-2 mt-2 nav-item">
                         <b style="text-shadow:0px 1px 2px;">SELLER</b> 
                     </div>
-                </a>
+                </a href="">
             </div>
         </div>
 
@@ -107,7 +111,7 @@
                         <div class="form-outline pb-5 pt-3">
                             <div class="row">
                                 <div class="col-sm-6 text-muted d-flex justify-content-start">
-                                    <h style="font-size: 13px;"> Already Have Account? <a href="" style="color:blue">Sign In Here</a> </h>
+                                    <h style="font-size: 13px;"> Already Have Account? <a href="{% url 'E_User:Login' %}" style="color:blue">Sign In Here</a> </h>
                                 </div>
                                 <div class="col-sm-6">
                                     <button type="submit" name="register-submit" class="btn btn-outline-primary btn-sm btn-block" style="width: 100%;">Register</button>
@@ -192,7 +196,7 @@
                         <div class="form-outline pb-5 pt-3">
                             <div class="row">
                                 <div class="col-sm-6 text-muted d-flex justify-content-start">
-                                    <h style="font-size: 13px;"> Already Have Account? <a href="" style="color:blue">Sign In Here</a> </h>
+                                    <h style="font-size: 13px;"> Already Have Account? <a href="{% url 'E_User:Login' %}" style="color:blue">Sign In Here</a> </h>
                                 </div>
                                 <div class="col-sm-6">
                                     <button type="submit" name="register-submit" class="btn btn-outline-primary btn-sm btn-block" style="width: 100%;">Register</button>
@@ -208,25 +212,28 @@
 </div>
 
 
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
-$(function() {
+    $(document).ready(function(){
+        $(function() {
 
-    $('#buyer-form-link').click(function(e) {
-		$("#buyer-form").delay(100).fadeIn(100);
- 		$("#seller-form").fadeOut(100);
-		$('#seller-form-link').removeClass('text-primary');
-		$(this).addClass('text-primary');
-		e.preventDefault();
-	});
-	$('#seller-form-link').click(function(e) {
-		$("#seller-form").delay(100).fadeIn(100);
- 		$("#buyer-form").fadeOut(100);
-		$('#buyer-form-link').removeClass('text-primary');
-		$(this).addClass('text-primary');
-		e.preventDefault();
-	});
+            $("#buyer-form-link").click(function(e) {
+            $("#buyer-form").delay(100).fadeIn(800);
+            $("#seller-form").fadeOut(100);
+            $('#seller-form-link').removeClass('text-primary');
+            $(this).addClass('text-primary');
+            e.preventDefault();
+            });
+            $("#seller-form-link").click(function(e) {
+            $("#seller-form").delay(100).fadeIn(800);
+            $("#buyer-form").fadeOut(100);
+            $('#buyer-form-link').removeClass('text-primary');
+            $(this).addClass('text-primary');
+            e.preventDefault();
+            });
 
-});
+        });
 
+    });
 </script>
 {% endblock %}

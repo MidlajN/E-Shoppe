@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %} 
+    Update Your Product - E Shoppee
+{% endblock %}
+
 {% block content %}
 {% if not products %}
 {% if request.user.is_seller == True %}

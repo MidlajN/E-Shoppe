@@ -170,3 +170,9 @@ a:hover {
     opacity: 70%;
 }
 
+svg{
+    color: #0026ff;
+    fill: currentColor;
+    
+}
+

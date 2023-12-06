@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'E_User',
     'E_Cart',
     'E_Order',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
